@@ -1,12 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="Definitions_07f9udm" targetNamespace="http://bpmn.io/schema/bpmn" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" exporter="Camunda Modeler" exporterVersion="5.29.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_07f9udm" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.29.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6.0">
   <bpmn:process id="Process_057duj5" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1" />
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_054lhn7</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_054lhn7" sourceRef="StartEvent_1" targetRef="Activity_Add_Product" />
+    <bpmn:userTask id="Activity_Add_Product" name="Add Product">
+      <bpmn:incoming>Flow_054lhn7</bpmn:incoming>
+      <bpmn:outgoing>Flow_1n1rftz</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1n1rftz" sourceRef="Activity_Add_Product" targetRef="Activity_Store_Product" />
+    <bpmn:serviceTask id="Activity_Store_Product" name="Store Product">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="storeproduct" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1n1rftz</bpmn:incoming>
+      <bpmn:outgoing>Flow_0xaovc0</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_1i22o3z">
+      <bpmn:incoming>Flow_0xaovc0</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0xaovc0" sourceRef="Activity_Store_Product" targetRef="Event_1i22o3z" />
+    <bpmn:textAnnotation id="TextAnnotation_159idu3">
+      <bpmn:text>Add Product Using Form</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_05rznac" associationDirection="None" sourceRef="Activity_Add_Product" targetRef="TextAnnotation_159idu3" />
+    <bpmn:textAnnotation id="TextAnnotation_1v2wpb8">
+      <bpmn:text>Product Details will be stored in backend</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1jhvqw8" associationDirection="None" sourceRef="Activity_Store_Product" targetRef="TextAnnotation_1v2wpb8" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_057duj5">
-      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
-        <dc:Bounds x="182" y="162" width="36" height="36" />
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
+        <dc:Bounds x="182" y="212" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_073zmos_di" bpmnElement="Activity_Add_Product" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="270" y="190" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0bm0ibw_di" bpmnElement="Activity_Store_Product" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="430" y="190" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1i22o3z_di" bpmnElement="Event_1i22o3z" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="592" y="212" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_05rznac_di" bpmnElement="Association_05rznac">
+        <di:waypoint x="333" y="190" />
+        <di:waypoint x="352" y="131" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1jhvqw8_di" bpmnElement="Association_1jhvqw8">
+        <di:waypoint x="498" y="190" />
+        <di:waypoint x="522" y="138" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_054lhn7_di" bpmnElement="Flow_054lhn7">
+        <di:waypoint x="218" y="230" />
+        <di:waypoint x="270" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1n1rftz_di" bpmnElement="Flow_1n1rftz">
+        <di:waypoint x="370" y="230" />
+        <di:waypoint x="430" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xaovc0_di" bpmnElement="Flow_0xaovc0">
+        <di:waypoint x="530" y="230" />
+        <di:waypoint x="592" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_159idu3_di" bpmnElement="TextAnnotation_159idu3">
+        <dc:Bounds x="310" y="90" width="100" height="41" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1v2wpb8_di" bpmnElement="TextAnnotation_1v2wpb8">
+        <dc:Bounds x="490" y="83" width="100" height="55" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
