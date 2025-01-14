@@ -34,6 +34,8 @@ public class Product {
     @Enumerated(EnumType.STRING)
     @Column(name="Product_Type")
     private ProductType productType;
-
-
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
+    @JoinColumn(foreignKey = @ForeignKey(name = "Order_Id"),
+            name = "Order_Id")
+    private Order order;
 }
