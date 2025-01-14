@@ -17,7 +17,7 @@ import java.util.Map;
 public class StoreOrderJobConfiguration {
 
     @JobWorker(type = "storeorder",autoComplete = false)
-    Map<String, Order> saveOrder(final JobClient jobClient, final ActivatedJob activatedJob){
+    public Map<String, Order> saveOrder(final JobClient jobClient, final ActivatedJob activatedJob){
         Faker faker=new Faker();
         Map<String,Object> receivedData=activatedJob.getVariablesAsMap();
         receivedData.entrySet().stream().forEach(entrySet->{
