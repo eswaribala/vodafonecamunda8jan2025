@@ -27,7 +27,10 @@
         "columns": null
       },
       "id": "Field_01kgagx",
-      "key": "qty"
+      "key": "qty",
+      "validate": {
+        "required": false
+      }
     },
     {
       "label": "Confirm The Selection",
