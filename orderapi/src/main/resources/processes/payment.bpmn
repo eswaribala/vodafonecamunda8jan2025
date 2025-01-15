@@ -8,7 +8,8 @@
     <bpmn:sequenceFlow id="Flow_0psbfth" sourceRef="Activity_Payment_Form" targetRef="Activity_Payment_Gateway" />
     <bpmn:userTask id="Activity_Payment_Form" name="Payment Form">
       <bpmn:extensionElements>
-        <zeebe:formDefinition formKey="embedded:/forms/payment-form.html" />
+        <zeebe:formDefinition formKey="forms/payment-form.html" />
+        <zeebe:assignmentDefinition assignee="demo" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_12vg0un</bpmn:incoming>
       <bpmn:outgoing>Flow_0psbfth</bpmn:outgoing>

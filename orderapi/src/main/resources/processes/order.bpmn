@@ -112,10 +112,10 @@
         <bpmn:incoming>Flow_1hkqgsb</bpmn:incoming>
       </bpmn:endEvent>
       <bpmn:sequenceFlow id="Flow_1hkqgsb" sourceRef="Gateway_1fhmr8s" targetRef="Event_192ztm3">
-        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=status = true</bpmn:conditionExpression>
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=paymentStatus = true</bpmn:conditionExpression>
       </bpmn:sequenceFlow>
       <bpmn:sequenceFlow id="Flow_1oc1n9n" sourceRef="Gateway_1fhmr8s" targetRef="Event_1hvmbzn">
-        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=status = false</bpmn:conditionExpression>
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=paymentStatus = false</bpmn:conditionExpression>
       </bpmn:sequenceFlow>
       <bpmn:endEvent id="Event_1hvmbzn">
         <bpmn:incoming>Flow_1oc1n9n</bpmn:incoming>

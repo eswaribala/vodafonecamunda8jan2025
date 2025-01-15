@@ -2,6 +2,7 @@ package com.vodafone.orderapi.configurations;
 
 import com.github.javafaker.Faker;
 import com.vodafone.orderapi.models.Order;
+import com.vodafone.orderapi.models.OrderStatus;
 import com.vodafone.orderapi.models.Product;
 import com.vodafone.orderapi.models.ProductType;
 import com.vodafone.orderapi.services.OrderImpl;
@@ -42,7 +43,7 @@ public class StoreOrderJobConfiguration {
         Map<String, Order> orderMap=new HashMap<>();
         Date date=faker.date().birthday();
         LocalDate localDate= Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
-        Order order=new Order(faker.number().numberBetween(1,1000000),localDate,0);
+        Order order=new Order(faker.number().numberBetween(1,1000000),localDate,0, OrderStatus.InProcess);
 
         //add to backend db
         Order orderResponse=orderImpl.addOrder(order);

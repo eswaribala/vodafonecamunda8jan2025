@@ -23,4 +23,8 @@ public class Order {
     private LocalDate orderDate;
     @Column(name="Order_Amount")
     private long orderAmount;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="Order_Status")
+    private OrderStatus orderStatus;
 }
