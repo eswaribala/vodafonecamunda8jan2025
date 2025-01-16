@@ -152,7 +152,9 @@
         <bpmn:outgoing>Flow_1oc1n9n</bpmn:outgoing>
         <bpmn:outgoing>Flow_0xn8hnm</bpmn:outgoing>
       </bpmn:exclusiveGateway>
-      <bpmn:sequenceFlow id="Flow_0xn8hnm" sourceRef="Gateway_1fhmr8s" targetRef="Activity_08ttkek" />
+      <bpmn:sequenceFlow id="Flow_0xn8hnm" sourceRef="Gateway_1fhmr8s" targetRef="Activity_08ttkek">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=paymentStatus = true</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
       <bpmn:receiveTask id="Activity_08ttkek" name="Receive Delivery Success Message" messageRef="Message_2j7vs8k">
         <bpmn:incoming>Flow_0xn8hnm</bpmn:incoming>
         <bpmn:outgoing>Flow_0xq1lec</bpmn:outgoing>
