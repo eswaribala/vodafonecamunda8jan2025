@@ -3,15 +3,33 @@
   <bpmn:process id="Process_Payment" name="Payment Process" isExecutable="true">
     <bpmn:extensionElements>
       <zeebe:userTaskForm id="UserTaskForm_141cddf">{
-  "executionPlatform": "Camunda Cloud",
-  "executionPlatformVersion": "8.6.0",
-  "exporter": {
-    "name": "Camunda Modeler",
-    "version": "5.29.0"
-  },
-  "schemaVersion": 17,
-  "id": "Form_Payment",
   "components": [
+    {
+      "label": "Billing Address",
+      "type": "textarea",
+      "id": "Textarea_1",
+      "validate": {
+        "minLength": 10,
+        "maxLength": 100,
+        "required": true
+      },
+      "key": "billingAddress",
+      "layout": {
+        "row": "row_1",
+        "columns": null
+      }
+    },
+    {
+      "label": "Amount To Be Paid",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0kghfec",
+        "columns": null
+      },
+      "id": "Field_09xmbak",
+      "key": "orderAmountCaptured",
+      "readonly": true
+    },
     {
       "label": "Payment Method",
       "values": [
@@ -39,41 +57,33 @@
       },
       "key": "paymentMethod",
       "layout": {
-        "row": "row_0",
-        "columns": null
-      }
-    },
-    {
-      "label": "Billing Address",
-      "type": "textarea",
-      "id": "Textarea_1",
-      "validate": {
-        "minLength": 10,
-        "maxLength": 100,
-        "required": true
-      },
-      "key": "billingAddress",
-      "layout": {
-        "row": "row_1",
+        "row": "Row_1pvsb00",
         "columns": null
       }
     }
   ],
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.29.0"
+  },
+  "schemaVersion": 17,
+  "id": "Form_Payment",
   "generated": true,
   "type": "default"
 }</zeebe:userTaskForm>
     </bpmn:extensionElements>
     <bpmn:startEvent id="StartEvent_1">
-      <bpmn:outgoing>Flow_12vg0un</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1ntt6ql</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="Flow_12vg0un" sourceRef="StartEvent_1" targetRef="Activity_Payment_Form" />
     <bpmn:sequenceFlow id="Flow_0psbfth" sourceRef="Activity_Payment_Form" targetRef="Activity_Payment_Gateway" />
     <bpmn:userTask id="Activity_Payment_Form" name="Payment Form">
       <bpmn:extensionElements>
         <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_141cddf" />
         <zeebe:assignmentDefinition assignee="demo" />
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_12vg0un</bpmn:incoming>
+      <bpmn:incoming>Flow_09gnbsi</bpmn:incoming>
       <bpmn:outgoing>Flow_0psbfth</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:serviceTask id="Activity_Payment_Gateway" name="Payment Gateway">
@@ -87,34 +97,51 @@
       <bpmn:incoming>Flow_1rcvdlc</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1rcvdlc" sourceRef="Activity_Payment_Gateway" targetRef="Event_0dzyufo" />
+    <bpmn:sequenceFlow id="Flow_1ntt6ql" sourceRef="StartEvent_1" targetRef="Activity_Extract_Order_Amount" />
+    <bpmn:sequenceFlow id="Flow_09gnbsi" sourceRef="Activity_Extract_Order_Amount" targetRef="Activity_Payment_Form" />
+    <bpmn:serviceTask id="Activity_Extract_Order_Amount" name="Extract Order Amount">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="extractorderamount" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1ntt6ql</bpmn:incoming>
+      <bpmn:outgoing>Flow_09gnbsi</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_Payment">
       <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1" bioc:stroke="#205022" bioc:fill="#c8e6c9" color:background-color="#c8e6c9" color:border-color="#205022">
         <dc:Bounds x="182" y="82" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0dzyufo_di" bpmnElement="Event_0dzyufo" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <dc:Bounds x="812" y="82" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0spm0ee_di" bpmnElement="Activity_Payment_Gateway" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <dc:Bounds x="640" y="60" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1anwq23_di" bpmnElement="Activity_Payment_Form" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <dc:Bounds x="440" y="60" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ni357d_di" bpmnElement="Activity_Extract_Order_Amount" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
         <dc:Bounds x="270" y="60" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0spm0ee_di" bpmnElement="Activity_Payment_Gateway" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <dc:Bounds x="430" y="60" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0dzyufo_di" bpmnElement="Event_0dzyufo" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
-        <dc:Bounds x="592" y="82" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_12vg0un_di" bpmnElement="Flow_12vg0un">
+      <bpmndi:BPMNEdge id="Flow_0psbfth_di" bpmnElement="Flow_0psbfth">
+        <di:waypoint x="540" y="100" />
+        <di:waypoint x="640" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rcvdlc_di" bpmnElement="Flow_1rcvdlc">
+        <di:waypoint x="740" y="100" />
+        <di:waypoint x="812" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ntt6ql_di" bpmnElement="Flow_1ntt6ql">
         <di:waypoint x="218" y="100" />
         <di:waypoint x="270" y="100" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0psbfth_di" bpmnElement="Flow_0psbfth">
+      <bpmndi:BPMNEdge id="Flow_09gnbsi_di" bpmnElement="Flow_09gnbsi">
         <di:waypoint x="370" y="100" />
-        <di:waypoint x="430" y="100" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1rcvdlc_di" bpmnElement="Flow_1rcvdlc">
-        <di:waypoint x="530" y="100" />
-        <di:waypoint x="592" y="100" />
+        <di:waypoint x="440" y="100" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
