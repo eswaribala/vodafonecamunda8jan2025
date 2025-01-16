@@ -25,7 +25,7 @@ public class CancelOrderJobConfiguration {
     @Autowired
     private OrderDao orderDao;
     @JobWorker(type = "cancelorder", autoComplete = false)
-    Map<String,Order> processPayment(final JobClient jobClient, final ActivatedJob activatedJob) throws JsonProcessingException {
+    public Map<String,Order> processPayment(final JobClient jobClient, final ActivatedJob activatedJob) throws JsonProcessingException {
 
         Map<String,Object> receivedData=activatedJob.getVariablesAsMap();
         receivedData.entrySet().stream().forEach(entrySet->{

@@ -1,6 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1v39m42" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.29.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6.0">
   <bpmn:process id="Process_Payment" name="Payment Process" isExecutable="true">
+    <bpmn:extensionElements>
+      <zeebe:userTaskForm id="UserTaskForm_141cddf">{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.29.0"
+  },
+  "schemaVersion": 17,
+  "id": "Form_Payment",
+  "components": [
+    {
+      "label": "Payment Method",
+      "values": [
+        {
+          "value": "Cash",
+          "label": "Cash"
+        },
+        {
+          "value": "Credit Card",
+          "label": "Credit Card"
+        },
+        {
+          "value": "Debit Card",
+          "label": "Debit Card"
+        },
+        {
+          "value": "UPI Payment",
+          "label": "UPI Payment"
+        }
+      ],
+      "type": "select",
+      "id": "Select_0",
+      "validate": {
+        "required": true
+      },
+      "key": "paymentMethod",
+      "layout": {
+        "row": "row_0",
+        "columns": null
+      }
+    },
+    {
+      "label": "Billing Address",
+      "type": "textarea",
+      "id": "Textarea_1",
+      "validate": {
+        "minLength": 10,
+        "maxLength": 100,
+        "required": true
+      },
+      "key": "billingAddress",
+      "layout": {
+        "row": "row_1",
+        "columns": null
+      }
+    }
+  ],
+  "generated": true,
+  "type": "default"
+}</zeebe:userTaskForm>
+    </bpmn:extensionElements>
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:outgoing>Flow_12vg0un</bpmn:outgoing>
     </bpmn:startEvent>
@@ -8,7 +70,7 @@
     <bpmn:sequenceFlow id="Flow_0psbfth" sourceRef="Activity_Payment_Form" targetRef="Activity_Payment_Gateway" />
     <bpmn:userTask id="Activity_Payment_Form" name="Payment Form">
       <bpmn:extensionElements>
-        <zeebe:formDefinition formKey="forms/payment-form.html" />
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_141cddf" />
         <zeebe:assignmentDefinition assignee="demo" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_12vg0un</bpmn:incoming>

@@ -14,11 +14,12 @@ import java.util.Map;
 public class OrderCancellationJobNotification {
 
     @JobWorker(type = "notifycancelorder",autoComplete = false)
-    Map<String, Boolean> NotifyCustomerOnOrderCancellation(final JobClient jobClient, final ActivatedJob activatedJob){
+    public Map<String, Boolean> NotifyCustomerOnOrderCancellation(final JobClient jobClient, final ActivatedJob activatedJob){
 
         log.info("Order Cancelled");
         Map<String,Boolean> notificationMap=new HashMap<>();
         notificationMap.put("notificationStatus",true);
+        //pub sub with bpmn error
         jobClient.newCompleteCommand(activatedJob.getKey())
                 .variables(notificationMap)
                 .send()

@@ -13,7 +13,7 @@ import java.util.Map;
 @Slf4j
 public class PaymentJobConfiguration {
     @JobWorker(type = "paymentgateway", autoComplete = false)
-    Map<String,Boolean> processPayment(final JobClient jobClient, final ActivatedJob activatedJob){
+    public Map<String,Boolean> processPayment(final JobClient jobClient, final ActivatedJob activatedJob){
 
         Map<String,Object> receivedData=activatedJob.getVariablesAsMap();
         receivedData.entrySet().stream().forEach(entrySet->{
