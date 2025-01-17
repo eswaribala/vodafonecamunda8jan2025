@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_DRD" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.29.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6.0">
   <decision id="Decision_Offer_DMN" name="Offer DMN">
-    <decisionTable id="DecisionTable_0u3f3tj">
+    <decisionTable id="DecisionTable_0u3f3tj" hitPolicy="ANY">
       <input id="Input_1" label="productName">
         <inputExpression id="InputExpression_1" typeRef="string">
           <text>productName</text>
@@ -17,16 +17,6 @@
           <text>billingAddress</text>
         </inputExpression>
       </input>
-      <input id="InputClause_0npv40a" label="discount">
-        <inputExpression id="LiteralExpression_1xkay43" typeRef="number">
-          <text>discount</text>
-        </inputExpression>
-      </input>
-      <input id="InputClause_0mgmbev" label="orderAmount">
-        <inputExpression id="LiteralExpression_0mr08pb" typeRef="number">
-          <text>number("orderAmountCaptured")</text>
-        </inputExpression>
-      </input>
       <output id="Output_1" label="calculatedAmount" name="calculatedAmount" typeRef="number" biodi:width="192" />
       <rule id="DecisionRule_05ce7ef">
         <inputEntry id="UnaryTests_0oekpjr">
@@ -38,14 +28,8 @@
         <inputEntry id="UnaryTests_0tkxl8x">
           <text>"Chennai"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_118fyje">
-          <text>0.15</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_09px6zx">
-          <text>[50000..1000000]</text>
-        </inputEntry>
         <outputEntry id="LiteralExpression_12prjkk">
-          <text>discount * orderAmount</text>
+          <text>0.15 * number(orderAmountCaptured)</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1qxqzof">
@@ -58,14 +42,8 @@
         <inputEntry id="UnaryTests_17d38ms">
           <text>"Pondicherry"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_0kjbk8l">
-          <text>0.25</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0pg24k5">
-          <text>[20000..40000000]</text>
-        </inputEntry>
         <outputEntry id="LiteralExpression_1qk08qh">
-          <text>discount * orderAmount</text>
+          <text>0.15 * number(orderAmountCaptured)</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0swhybu">
@@ -78,33 +56,35 @@
         <inputEntry id="UnaryTests_1px6mi6">
           <text>"New Delhi"</text>
         </inputEntry>
-        <inputEntry id="UnaryTests_1b1xzz4">
-          <text>0.10</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0fnppc4">
-          <text>[80000.200000]</text>
-        </inputEntry>
         <outputEntry id="LiteralExpression_1y6r1uc">
-          <text>discount * orderAmount</text>
+          <text>0.15 * number(orderAmountCaptured)</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0d3be9m">
         <inputEntry id="UnaryTests_1i81jlk">
-          <text></text>
+          <text>"laptop"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1u825jd">
-          <text></text>
+          <text>"Winter"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0gqp1hg">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1c5idte">
-          <text></text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1t2518a">
-          <text></text>
+          <text>"Chennai"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0pylpof">
+          <text>0.15 * number(orderAmountCaptured)</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0w0045w">
+        <inputEntry id="UnaryTests_00ejyb3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0o2lcac">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04np0lb">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1keje09">
           <text>100000</text>
         </outputEntry>
       </rule>
