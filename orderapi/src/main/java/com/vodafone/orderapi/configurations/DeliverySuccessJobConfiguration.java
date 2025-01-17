@@ -28,7 +28,7 @@ public class DeliverySuccessJobConfiguration {
          Map<String,Boolean> orderMap=new HashMap<>();
          orderMap.put("deliveryStatus",true);
         zeebeClient.newPublishMessageCommand()
-                .messageName("Message_Delivery_Success_Message")
+                .messageName("Message_Delivery_Status")
                 .correlationKey("2002")
 
                 // .variables(subProcess)

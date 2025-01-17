@@ -1,11 +1,6 @@
 package com.vodafone.orderapi.configurations;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vodafone.orderapi.models.Order;
-import com.vodafone.orderapi.models.OrderStatus;
-import com.vodafone.orderapi.services.OrderDao;
 import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
@@ -20,27 +15,19 @@ import java.util.Map;
 
 @Configuration
 @Slf4j
-public class DeliveryIssueJobConfiguration {
+public class ReminderSMSJobConfiguration {
     @Autowired
     private ZeebeClient zeebeClient;
+    private static int count=1;
 
-    @JobWorker(type = "deliveryissue", autoComplete = false)
-    public Map<String,Boolean> deliveryIssue(final JobClient jobClient, final ActivatedJob activatedJob) throws JsonProcessingException {
+    @JobWorker(type = "sendreminder", autoComplete = false)
+    public Map<String,Boolean> reminderSMS(final JobClient jobClient, final ActivatedJob activatedJob) throws JsonProcessingException {
 
 
          Map<String,Boolean> orderMap=new HashMap<>();
          orderMap.put("deliveryStatus",false);
-        zeebeClient.newPublishMessageCommand()
-                .messageName("Message_Delivery_Status")
-                .correlationKey("2002")
-
-                // .variables(subProcess)
-                .timeToLive(Duration.ofMinutes(3))
-                .send()
-
-                .exceptionally((throwable)->{
-                    throw new RuntimeException("Job not found");
-                });
+         log.info("SMS Sent="+count);
+         count++;
         jobClient.newCompleteCommand(activatedJob.getKey())
                 .variables(orderMap)
                 .send()
