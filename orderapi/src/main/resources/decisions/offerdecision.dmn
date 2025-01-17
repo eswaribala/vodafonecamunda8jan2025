@@ -88,6 +88,26 @@
           <text>discount * orderAmount</text>
         </outputEntry>
       </rule>
+      <rule id="DecisionRule_0d3be9m">
+        <inputEntry id="UnaryTests_1i81jlk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u825jd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gqp1hg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c5idte">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t2518a">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0pylpof">
+          <text>100000</text>
+        </outputEntry>
+      </rule>
     </decisionTable>
   </decision>
   <dmndi:DMNDI>
