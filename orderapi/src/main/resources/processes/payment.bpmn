@@ -107,6 +107,9 @@
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1glz9cw" sourceRef="Activity_Information_Form" targetRef="Activity_Discount_Decision" />
     <bpmn:businessRuleTask id="Activity_Discount_Decision" name="Discount Decision ">
+      <bpmn:extensionElements>
+        <zeebe:calledDecision decisionId="Decision_Offer_DMN" resultVariable="discount" />
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1glz9cw</bpmn:incoming>
       <bpmn:outgoing>Flow_0bp361w</bpmn:outgoing>
     </bpmn:businessRuleTask>
