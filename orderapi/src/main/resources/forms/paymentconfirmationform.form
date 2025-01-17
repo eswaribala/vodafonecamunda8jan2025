@@ -28,7 +28,8 @@
         "columns": null
       },
       "id": "Field_1sg0kqt",
-      "key": "calculatedAmount"
+      "key": "calculatedAmount",
+      "readonly": true
     },
     {
       "label": "Confirm To Proceed With Payment Processing",

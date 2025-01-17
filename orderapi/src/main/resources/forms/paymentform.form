@@ -5,7 +5,7 @@
       "type": "textarea",
       "id": "Textarea_1",
       "validate": {
-        "minLength": 10,
+        "minLength": 3,
         "maxLength": 100,
         "required": true
       },
