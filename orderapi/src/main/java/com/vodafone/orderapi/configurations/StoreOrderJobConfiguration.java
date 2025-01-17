@@ -53,7 +53,7 @@ public class StoreOrderJobConfiguration {
             product.setOrder(orderResponse);
             product.setQty(Long.parseLong(receivedData.get("qty").toString()));
             product.setName(receivedData.get("productName").toString());
-            product.setUnitPrice(faker.number().numberBetween(500,500000));
+            product.setUnitPrice(faker.number().numberBetween(20000,5000000));
             product.setSalePrice(product.getUnitPrice()*2);
             product.setBufferLevel(faker.number().numberBetween(50,200));
             ProductType productType =  getRandomEnumValue(ProductType.class);
