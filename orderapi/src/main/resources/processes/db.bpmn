@@ -13,16 +13,11 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="io.camunda:connector-jdbc:1" retries="3" />
         <zeebe:ioMapping>
-          <zeebe:input source="MYSQL" target="database" />
-          <zeebe:input source="detailed" target="connection.authType" />
-          <zeebe:input source="localhost" target="connection.host" />
-          <zeebe:input source="3306" target="connection.port" />
-          <zeebe:input source="root" target="connection.username" />
-          <zeebe:input source="vignesh" target="connection.password" />
-          <zeebe:input source="vodafoneorderdb" target="connection.databaseName" />
-          <zeebe:input source="={useSSL:true}" target="connection.properties" />
+          <zeebe:input target="database" />
+          <zeebe:input source="uri" target="connection.authType" />
+          <zeebe:input target="connection.uri" />
           <zeebe:input source="false" target="data.returnResults" />
-          <zeebe:input source="select * from Vodafone_Order;" target="data.query" />
+          <zeebe:input target="data.query" />
         </zeebe:ioMapping>
         <zeebe:taskHeaders>
           <zeebe:header key="retryBackoff" value="PT0S" />

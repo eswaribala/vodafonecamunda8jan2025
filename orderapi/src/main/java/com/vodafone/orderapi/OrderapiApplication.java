@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @Deployment(resources ={("classpath*:/processes/**/*.bpmn"),("classpath*:/decisions/**/*.dmn")})
-@EnableScheduling
+//@EnableScheduling
 public class OrderapiApplication {
 
     public static void main(String[] args) {

@@ -23,6 +23,11 @@ public class ProductImpl  implements ProductDao{
     }
 
     @Override
+    public List<Product> getProductByOrderId(long orderId) {
+        return this.productRepository.findProductByOrderId(orderId);
+    }
+
+    @Override
     public Product updateProduct(long productId, long unitPrice, long salePrice) {
         Product product=this.productRepository.findById(productId).orElse(null);
         if(product!=null){
