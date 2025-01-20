@@ -23,12 +23,12 @@ public class KafkaProcessController {
 
         this.zeebeClient
                 .newCreateInstanceCommand()
-                .bpmnProcessId(ProcessConstant.DB_BPMN_Process_Constant)
+                .bpmnProcessId(ProcessConstant.KAFKA_CONSUMER_BPMN_Process_Constant)
                 .latestVersion()
                 //.variables(variables)
                 .send();
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new GenericResponse("Instance created for"+ProcessConstant.DB_BPMN_Process_Constant));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new GenericResponse("Instance created for"+ProcessConstant.KAFKA_CONSUMER_BPMN_Process_Constant));
 
     }
 
