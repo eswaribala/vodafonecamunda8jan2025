@@ -1,0 +1,8 @@
+1. deploy zookeeper deployment kubectl apply -f zookeeper-deployment.yaml
+2.deploy kafka deployment kubectl apply -f kafka-deployment.yaml
+
+3. kubectl port-forward svc/kafka 9092:9092
+4. kubectl exec -it kafka-595dfb9878-2845z bin/bash
+5. kafka-topics.sh --create --topic test-topic --bootstrap-server kafka:9092
+6. kafka-console-producer.sh --topic test-topic --bootstrap-server kafka:9092
+7. kafka-console-consumer.sh --topic test-topic --bootstrap-server kafka:9092 --from-beginning
