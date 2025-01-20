@@ -19,7 +19,7 @@ public class KafkaProcessController {
 
     //instantiate the bpmn
     @GetMapping("/v1.0")
-    ResponseEntity<GenericResponse> startDBProcess(){
+    ResponseEntity<?> startDBProcess(){
 
         this.zeebeClient
                 .newCreateInstanceCommand()
@@ -28,7 +28,7 @@ public class KafkaProcessController {
                 //.variables(variables)
                 .send();
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new GenericResponse("Instance created for"+ProcessConstant.KAFKA_CONSUMER_BPMN_Process_Constant));
+        return ResponseEntity.status(HttpStatus.CREATED).body("Instance created for"+ProcessConstant.KAFKA_CONSUMER_BPMN_Process_Constant);
 
     }
 
