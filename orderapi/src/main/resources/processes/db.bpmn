@@ -44,7 +44,7 @@
         <zeebe:taskDefinition type="io.camunda:connector-kafka:1" retries="3" />
         <zeebe:ioMapping>
           <zeebe:input source="kafka:9092" target="topic.bootstrapServers" />
-          <zeebe:input source="vodaorder" target="topic.topicName" />
+          <zeebe:input source="order-topic" target="topic.topicName" />
           <zeebe:input source="noSchema" target="schemaStrategy.type" />
           <zeebe:input source="order" target="message.key" />
           <zeebe:input source="{ &#34;name&#34;: &#34;laptop&#34;,   &#34;id&#34;: 29,&#34;cost&#34;:67890}   }" target="message.value" />
