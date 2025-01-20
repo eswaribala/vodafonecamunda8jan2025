@@ -76,15 +76,17 @@
           <zeebe:property name="authenticationType" value="credentials" />
           <zeebe:property name="topic.bootstrapServers" value="kafka:9092" />
           <zeebe:property name="topic.topicName" value="order-topic" />
-          <zeebe:property name="groupId" value="" />
+          <zeebe:property name="groupId" value="delivery-group" />
           <zeebe:property name="autoOffsetReset" value="latest" />
           <zeebe:property name="schemaStrategy.type" value="noSchema" />
           <zeebe:property name="consumeUnmatchedEvents" value="true" />
           <zeebe:property name="correlationKeyExpression" value="=&#34;&#34;" />
-          <zeebe:property name="deduplicationModeManualFlag" value="false" />
-          <zeebe:property name="deduplicationMode" value="AUTO" />
+          <zeebe:property name="messageTtl" value="PT10S" />
+          <zeebe:property name="deduplicationModeManualFlag" value="true" />
+          <zeebe:property name="deduplicationId" value="12" />
+          <zeebe:property name="deduplicationMode" value="MANUAL" />
           <zeebe:property name="resultVariable" value="result" />
-          <zeebe:property name="resultExpression" value="" />
+          <zeebe:property name="resultExpression" value="={&#10;  &#34;name&#34;: value.name&#10;}" />
         </zeebe:properties>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0aujsq0</bpmn:incoming>
@@ -92,7 +94,7 @@
       <bpmn:messageEventDefinition id="MessageEventDefinition_0jh1cvg" messageRef="Message_12mactl" />
     </bpmn:intermediateCatchEvent>
   </bpmn:process>
-  <bpmn:message id="Message_12mactl" name="a37fad10-bc67-40e6-8802-f43153d06645" zeebe:modelerTemplate="io.camunda.connectors.inbound.KafkaIntermediate.v1">
+  <bpmn:message id="Message_12mactl" name="2091e5f5-9979-4c57-8692-8b5189904102" zeebe:modelerTemplate="io.camunda.connectors.inbound.KafkaIntermediate.v1">
     <bpmn:extensionElements>
       <zeebe:subscription correlationKey="=kafkaOrderId" />
     </bpmn:extensionElements>
