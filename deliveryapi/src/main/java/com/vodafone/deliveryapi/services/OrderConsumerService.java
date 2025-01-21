@@ -1,30 +1,26 @@
 package com.vodafone.deliveryapi.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.github.javafaker.Faker;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.kafka.annotation.KafkaHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.handler.annotation.Header;
 
 import java.util.concurrent.CompletableFuture;
 
-@Component
-@KafkaListener(topics = "order-topic", groupId = "saga-ecommerce-group")
-
+@Service
+@Slf4j
 public class OrderConsumerService {
 
-    @KafkaHandler(isDefault = true)
-
-    public void receiveMessage(String message){
-        System.out.println(message);
-
+    @KafkaListener(id = "myConsumer", topics = "topic_0", groupId = "springboot-group-1", autoStartup = "true")
+    public void listen(String value,
+                       @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
+                       @Header(KafkaHeaders.RECEIVED_KEY) String key) {
+        log.info(String.format("\n\n Consumed event from topic %s: key = %-10s value = %s \n\n", topic, key, value));
     }
 
 
 }
+
