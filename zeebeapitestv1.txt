@@ -1,0 +1,25 @@
+grant_type=client_credentials
+https://login.cloud.camunda.io/oauth/token
+
+client_id=''
+client_secret=''
+
+audience=zeebe.camunda.io
+
+
+https://sin-1.zeebe.camunda.io:443/{}/v2/topology
+
+-----------------------------------------
+operate test
+https://login.cloud.camunda.io/oauth/token
+
+client_id=''
+client_secret=''
+
+audience=operate.camunda.io
+
+post
+https://sin-1.operate.camunda.io:443/{}/v1/process-definitions/search
+
+get
+https://sin-1.operate.camunda.io:443/{}/v1/process-definitions/2251799813686268
