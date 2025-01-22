@@ -7,4 +7,5 @@ public class ProcessConstant {
     public static final String STOCK_BPMN_Process_Constant="Process_Stock";
 
     public static final String REFUND_BPMN_Process_Constant="Process_Refund";
+    public static final String SLACK_BPMN_Process_Constant="Process_Slack";
 }
