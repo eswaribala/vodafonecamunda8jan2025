@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="65a2317" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.7.0">
+  <bpmn:process id="Process_Bank_Process" name="BankProcess" isExecutable="true">
+    <bpmn:extensionElements>
+      <zeebe:properties>
+        <zeebe:property name="order" value="&#34;&#34;" />
+      </zeebe:properties>
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="Event_12wqr79">
+      <bpmn:outgoing>Flow_0gmoqbq</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0gmoqbq" sourceRef="Event_12wqr79" targetRef="Activity_Receive_Secret" />
+    <bpmn:userTask id="Activity_Receive_Secret" name="Receive Secret">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:input source="={&#34;Content-Type&#34;:&#34;application/json&#34;}" target="headers" />
+          <zeebe:input source="saas" target="authentication.internal_deployment_type" />
+          <zeebe:input source="ric-1" target="authentication.internal_region" />
+          <zeebe:input source="a01aafc6-5297-4221-afff-b29e5d8cac9f" target="authentication.internal_cluster" />
+          <zeebe:input source="oauth-client-credentials-flow" target="authentication.type" />
+          <zeebe:input source="credentialsBody" target="authentication.clientAuthentication" />
+          <zeebe:input source="https://login.cloud.camunda.io/oauth/token" target="authentication.oauthTokenEndpoint" />
+          <zeebe:input source="vLjMZSMZAHQMnTSMdrFEtznpRR7G1K_8" target="authentication.clientId" />
+          <zeebe:input source="5Je-XHNvb2OdJUB6ojb67a3.XekR4vo4d2Ch~d08oM65jDu3rug_IrcwugFmfabY" target="authentication.clientSecret" />
+          <zeebe:input source="operate.camunda.io" target="authentication.audience" />
+          <zeebe:input source="/v1/process-instances" target="input.internal_endpoint" />
+          <zeebe:input source="/search" target="input.internal_operation" />
+          <zeebe:input source="post" target="method" />
+          <zeebe:input source="=&#34;https://&#34; + authentication.internal_region + &#34;.operate.camunda.io/&#34; + authentication.internal_cluster + input.internal_endpoint + input.internal_operation + (if is defined(input.internal_key) then input.internal_key else &#34;&#34;)" target="url" />
+          <zeebe:input source="20" target="input.internal_results" />
+          <zeebe:input source="={filter: if is defined(input.internal_filter) then input.internal_filter else null, sort: if is defined(input.internal_sort) then input.internal_sort else null, searchAfter: if is defined(input.internal_pagination) then input.internal_pagination else null, size: number(input.internal_results)}" target="body" />
+          <zeebe:input source="20" target="connectionTimeoutInSeconds" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="resultVariable" value="result" />
+          <zeebe:header key="resultExpression" value="={ myHeader: &#34;{{secrets.username}}&#34;}" />
+        </zeebe:taskHeaders>
+        <zeebe:userTask />
+        <zeebe:formDefinition formId="receive-secret-1nm7nuh" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0gmoqbq</bpmn:incoming>
+      <bpmn:outgoing>Flow_09mfcfo</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_09mfcfo" sourceRef="Activity_Receive_Secret" targetRef="Activity_02khux5" />
+    <bpmn:serviceTask id="Activity_02khux5" name="User API" zeebe:modelerTemplate="io.camunda.connectors.HttpJson.v2" zeebe:modelerTemplateVersion="8" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3LjAzMzUgOC45OTk5N0MxNy4wMzM1IDEzLjQ0NzUgMTMuNDI4MSAxNy4wNTI5IDguOTgwNjUgMTcuMDUyOUM0LjUzMzE2IDE3LjA1MjkgMC45Mjc3NjUgMTMuNDQ3NSAwLjkyNzc2NSA4Ljk5OTk3QzAuOTI3NzY1IDQuNTUyNDggNC41MzMxNiAwLjk0NzA4MyA4Ljk4MDY1IDAuOTQ3MDgzQzEzLjQyODEgMC45NDcwODMgMTcuMDMzNSA0LjU1MjQ4IDE3LjAzMzUgOC45OTk5N1oiIGZpbGw9IiM1MDU1NjIiLz4KPHBhdGggZD0iTTQuOTMxMjYgMTQuMTU3MUw2Ljc4MTA2IDMuNzE0NzFIMTAuMTM3NUMxMS4xOTE3IDMuNzE0NzEgMTEuOTgyNCAzLjk4MzIzIDEyLjUwOTUgNC41MjAyN0MxMy4wNDY1IDUuMDQ3MzYgMTMuMzE1IDUuNzMzNTggMTMuMzE1IDYuNTc4OTJDMTMuMzE1IDcuNDQ0MTQgMTMuMDcxNCA4LjE1NTIyIDEyLjU4NDEgOC43MTIxNUMxMi4xMDY3IDkuMjU5MTMgMTEuNDU1MyA5LjYzNzA1IDEwLjYyOTggOS44NDU5TDEyLjA2MTkgMTQuMTU3MUgxMC4zMzE1TDkuMDMzNjQgMTAuMDI0OUg3LjI0MzUxTDYuNTEyNTQgMTQuMTU3MUg0LjkzMTI2Wk03LjQ5NzExIDguNTkyODFIOS4yNDI0OEM5Ljk5ODMyIDguNTkyODEgMTAuNTkwMSA4LjQyMzc0IDExLjAxNzcgOC4wODU2MUMxMS40NTUzIDcuNzM3NTMgMTEuNjc0MSA3LjI2NTEzIDExLjY3NDEgNi42Njg0MkMxMS42NzQxIDYuMTkxMDYgMTEuNTI0OSA1LjgxODExIDExLjIyNjUgNS41NDk1OUMxMC45MjgyIDUuMjcxMTMgMTAuNDU1OCA1LjEzMTkgOS44MDkzNiA1LjEzMTlIOC4xMDg3NEw3LjQ5NzExIDguNTkyODFaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.camunda:http-json:1" retries="3" />
+        <zeebe:ioMapping>
+          <zeebe:input source="noAuth" target="authentication.type" />
+          <zeebe:input source="GET" target="method" />
+          <zeebe:input source="https://jsonplaceholder.typicode.com/users" target="url" />
+          <zeebe:input source="={ myHeader: &#34;{{secrets.ipaddress}}&#34;}" target="headers" />
+          <zeebe:input source="20" target="connectionTimeoutInSeconds" />
+          <zeebe:input source="20" target="readTimeoutInSeconds" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="resultVariable" value="users" />
+          <zeebe:header key="retryBackoff" value="PT0S" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_09mfcfo</bpmn:incoming>
+      <bpmn:outgoing>Flow_0q3emp2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0q3emp2" sourceRef="Activity_02khux5" targetRef="Activity_19hpwcs" />
+    <bpmn:serviceTask id="Activity_19hpwcs" name="Kafka publisher" zeebe:modelerTemplate="io.camunda.connectors.KAFKA.v1" zeebe:modelerTemplateVersion="5" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTgnIGhlaWdodD0nMTgnIHZpZXdCb3g9JzAgMCAyNTYgNDE2JyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHByZXNlcnZlQXNwZWN0UmF0aW89J3hNaWRZTWlkJz4KICAgIDxwYXRoIGQ9J00yMDEuODE2IDIzMC4yMTZjLTE2LjE4NiAwLTMwLjY5NyA3LjE3MS00MC42MzQgMTguNDYxbC0yNS40NjMtMTguMDI2YzIuNzAzLTcuNDQyIDQuMjU1LTE1LjQzMyA0LjI1NS0yMy43OTcgMC04LjIxOS0xLjQ5OC0xNi4wNzYtNC4xMTItMjMuNDA4bDI1LjQwNi0xNy44MzVjOS45MzYgMTEuMjMzIDI0LjQwOSAxOC4zNjUgNDAuNTQ4IDE4LjM2NSAyOS44NzUgMCA1NC4xODQtMjQuMzA1IDU0LjE4NC01NC4xODQgMC0yOS44NzktMjQuMzA5LTU0LjE4NC01NC4xODQtNTQuMTg0LTI5Ljg3NSAwLTU0LjE4NCAyNC4zMDUtNTQuMTg0IDU0LjE4NCAwIDUuMzQ4LjgwOCAxMC41MDUgMi4yNTggMTUuMzg5bC0yNS40MjMgMTcuODQ0Yy0xMC42Mi0xMy4xNzUtMjUuOTExLTIyLjM3NC00My4zMzMtMjUuMTgydi0zMC42NGMyNC41NDQtNS4xNTUgNDMuMDM3LTI2Ljk2MiA0My4wMzctNTMuMDE5QzEyNC4xNzEgMjQuMzA1IDk5Ljg2MiAwIDY5Ljk4NyAwIDQwLjExMiAwIDE1LjgwMyAyNC4zMDUgMTUuODAzIDU0LjE4NGMwIDI1LjcwOCAxOC4wMTQgNDcuMjQ2IDQyLjA2NyA1Mi43Njl2MzEuMDM4QzI1LjA0NCAxNDMuNzUzIDAgMTcyLjQwMSAwIDIwNi44NTRjMCAzNC42MjEgMjUuMjkyIDYzLjM3NCA1OC4zNTUgNjguOTR2MzIuNzc0Yy0yNC4yOTkgNS4zNDEtNDIuNTUyIDI3LjAxMS00Mi41NTIgNTIuODk0IDAgMjkuODc5IDI0LjMwOSA1NC4xODQgNTQuMTg0IDU0LjE4NCAyOS44NzUgMCA1NC4xODQtMjQuMzA1IDU0LjE4NC01NC4xODQgMC0yNS44ODMtMTguMjUzLTQ3LjU1My00Mi41NTItNTIuODk0di0zMi43NzVhNjkuOTY1IDY5Ljk2NSAwIDAgMCA0Mi42LTI0Ljc3NmwyNS42MzMgMTguMTQzYy0xLjQyMyA0Ljg0LTIuMjIgOS45NDYtMi4yMiAxNS4yNCAwIDI5Ljg3OSAyNC4zMDkgNTQuMTg0IDU0LjE4NCA1NC4xODQgMjkuODc1IDAgNTQuMTg0LTI0LjMwNSA1NC4xODQtNTQuMTg0IDAtMjkuODc5LTI0LjMwOS01NC4xODQtNTQuMTg0LTU0LjE4NHptMC0xMjYuNjk1YzE0LjQ4NyAwIDI2LjI3IDExLjc4OCAyNi4yNyAyNi4yNzFzLTExLjc4MyAyNi4yNy0yNi4yNyAyNi4yNy0yNi4yNy0xMS43ODctMjYuMjctMjYuMjdjMC0xNC40ODMgMTEuNzgzLTI2LjI3MSAyNi4yNy0yNi4yNzF6bS0xNTguMS00OS4zMzdjMC0xNC40ODMgMTEuNzg0LTI2LjI3IDI2LjI3MS0yNi4yN3MyNi4yNyAxMS43ODcgMjYuMjcgMjYuMjdjMCAxNC40ODMtMTEuNzgzIDI2LjI3LTI2LjI3IDI2LjI3cy0yNi4yNzEtMTEuNzg3LTI2LjI3MS0yNi4yN3ptNTIuNTQxIDMwNy4yNzhjMCAxNC40ODMtMTEuNzgzIDI2LjI3LTI2LjI3IDI2LjI3cy0yNi4yNzEtMTEuNzg3LTI2LjI3MS0yNi4yN2MwLTE0LjQ4MyAxMS43ODQtMjYuMjcgMjYuMjcxLTI2LjI3czI2LjI3IDExLjc4NyAyNi4yNyAyNi4yN3ptLTI2LjI3Mi0xMTcuOTdjLTIwLjIwNSAwLTM2LjY0Mi0xNi40MzQtMzYuNjQyLTM2LjYzOCAwLTIwLjIwNSAxNi40MzctMzYuNjQyIDM2LjY0Mi0zNi42NDIgMjAuMjA0IDAgMzYuNjQxIDE2LjQzNyAzNi42NDEgMzYuNjQyIDAgMjAuMjA0LTE2LjQzNyAzNi42MzgtMzYuNjQxIDM2LjYzOHptMTMxLjgzMSA2Ny4xNzljLTE0LjQ4NyAwLTI2LjI3LTExLjc4OC0yNi4yNy0yNi4yNzFzMTEuNzgzLTI2LjI3IDI2LjI3LTI2LjI3IDI2LjI3IDExLjc4NyAyNi4yNyAyNi4yN2MwIDE0LjQ4My0xMS43ODMgMjYuMjcxLTI2LjI3IDI2LjI3MXonCiAgICAgICAgICBzdHlsZT0nZmlsbDojMjMxZjIwJy8+Cjwvc3ZnPg==">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.camunda:connector-kafka:1" retries="3" />
+        <zeebe:ioMapping>
+          <zeebe:input source="{{secrets.apikey}}" target="authentication.username" />
+          <zeebe:input source="BedKSUqvzkdqw4wo0A4cc3fDlJqEYEpzuNWx8rGi2yGN5TFSTzQpLmRQKOfBBaRs" target="authentication.password" />
+          <zeebe:input source="pkc-619z3.us-east1.gcp.confluent.cloud:9092" target="topic.bootstrapServers" />
+          <zeebe:input source="topic_0" target="topic.topicName" />
+          <zeebe:input source="noSchema" target="schemaStrategy.type" />
+          <zeebe:input source="order" target="message.key" />
+          <zeebe:input source="{ &#34;name&#34;: &#34;sanitizer&#34;,&#34;id&#34;: 5001,&#34;cost&#34;:1500} " target="message.value" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="resultVariable" value="result" />
+          <zeebe:header key="retryBackoff" value="PT0S" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0q3emp2</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ijcl22</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0ijcl22" sourceRef="Activity_19hpwcs" targetRef="Activity_0a0amv6" />
+    <bpmn:endEvent id="Event_0ry5drk">
+      <bpmn:incoming>Flow_19bg3q4</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_19bg3q4" sourceRef="Activity_0a0amv6" targetRef="Event_0ry5drk" />
+    <bpmn:serviceTask id="Activity_0a0amv6" name="Access Secret">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="secretaccess" />
+        <zeebe:ioMapping>
+          <zeebe:input source="={ myHeader: &#34;{{secrets.apikey}}&#34;}" target="apikey" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ijcl22</bpmn:incoming>
+      <bpmn:outgoing>Flow_19bg3q4</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_Bank_Process">
+      <bpmndi:BPMNShape id="Event_12wqr79_di" bpmnElement="Event_12wqr79">
+        <dc:Bounds x="12" y="100" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1hfaykl_di" bpmnElement="Activity_Receive_Secret">
+        <dc:Bounds x="140" y="78" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1hs8lqd_di" bpmnElement="Activity_02khux5">
+        <dc:Bounds x="340" y="78" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0w5kw9b_di" bpmnElement="Activity_19hpwcs">
+        <dc:Bounds x="510" y="78" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ry5drk_di" bpmnElement="Event_0ry5drk">
+        <dc:Bounds x="852" y="100" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1811v8h_di" bpmnElement="Activity_0a0amv6">
+        <dc:Bounds x="680" y="78" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0gmoqbq_di" bpmnElement="Flow_0gmoqbq">
+        <di:waypoint x="48" y="118" />
+        <di:waypoint x="140" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09mfcfo_di" bpmnElement="Flow_09mfcfo">
+        <di:waypoint x="240" y="118" />
+        <di:waypoint x="340" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0q3emp2_di" bpmnElement="Flow_0q3emp2">
+        <di:waypoint x="440" y="118" />
+        <di:waypoint x="510" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ijcl22_di" bpmnElement="Flow_0ijcl22">
+        <di:waypoint x="610" y="118" />
+        <di:waypoint x="680" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19bg3q4_di" bpmnElement="Flow_19bg3q4">
+        <di:waypoint x="780" y="118" />
+        <di:waypoint x="852" y="118" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

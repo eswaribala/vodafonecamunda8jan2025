@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class OrderConsumerService {
 
-    @KafkaListener(id = "myConsumer", topics = "topic_0", groupId = "springboot-group-1", autoStartup = "true")
+    @KafkaListener(id = "myConsumer", topics = "vodaorder", groupId = "springboot-group-1", autoStartup = "true")
     public void listen(String value,
                        @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
                        @Header(KafkaHeaders.RECEIVED_KEY) String key) {

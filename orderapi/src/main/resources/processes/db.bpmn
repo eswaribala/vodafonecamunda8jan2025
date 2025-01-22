@@ -46,10 +46,10 @@
           <zeebe:input source="ARZZ7SWL3TLC5K6E" target="authentication.username" />
           <zeebe:input source="BedKSUqvzkdqw4wo0A4cc3fDlJqEYEpzuNWx8rGi2yGN5TFSTzQpLmRQKOfBBaRs" target="authentication.password" />
           <zeebe:input source="pkc-619z3.us-east1.gcp.confluent.cloud:9092" target="topic.bootstrapServers" />
-          <zeebe:input source="topic_0" target="topic.topicName" />
+          <zeebe:input source="vodaorder" target="topic.topicName" />
           <zeebe:input source="noSchema" target="schemaStrategy.type" />
           <zeebe:input source="order" target="message.key" />
-          <zeebe:input source="{ &#34;name&#34;: &#34;pen&#34;,&#34;id&#34;: 3002,&#34;cost&#34;:500} " target="message.value" />
+          <zeebe:input source="{ &#34;name&#34;: &#34;headphone&#34;,&#34;id&#34;: 3009,&#34;cost&#34;:5000} " target="message.value" />
         </zeebe:ioMapping>
         <zeebe:taskHeaders>
           <zeebe:header key="resultVariable" value="orderResponse" />

@@ -26,7 +26,7 @@ public class KafkaProcessController {
     ResponseEntity<?> startDBProcess(){
 
         Map<String,String> map=new HashMap<>();
-         map.put("order","{ \"name\": \"mobile\",\"id\": 3001,\"cost\":67890}" );
+         map.put("name","headphone");
          this.zeebeClient
                 .newCreateInstanceCommand()
                 .bpmnProcessId(ProcessConstant.KAFKA_CONSUMER_BPMN_Process_Constant)

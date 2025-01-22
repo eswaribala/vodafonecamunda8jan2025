@@ -31,4 +31,17 @@ public class ProcessController {
 
 
     }
+    @GetMapping("/payments")
+    public ResponseEntity<?> startPaymentProcess(){
+
+        zeebeClient.newCreateInstanceCommand().bpmnProcessId(ProcessConstant.BPMN_PAYMENT_ID)
+                .latestVersion()
+                .send();
+
+        return ResponseEntity.status(HttpStatus.OK).body("Process Started..."+ProcessConstant.BPMN_PAYMENT_ID);
+
+
+
+    }
+
 }
