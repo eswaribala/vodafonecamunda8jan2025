@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/stocks")
 public class StockProcessController {
@@ -21,11 +24,13 @@ public class StockProcessController {
     @GetMapping("/v1.0")
     ResponseEntity<GenericResponse> startStockProcess(){
 
+        Map<String,Boolean> map=new HashMap<>();
+        map.put("activate",true);
         this.zeebeClient
                 .newCreateInstanceCommand()
                 .bpmnProcessId(ProcessConstant.STOCK_BPMN_Process_Constant)
                 .latestVersion()
-                //.variables(variables)
+                .variables(map)
                 .send();
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new GenericResponse("Instance created for"+ProcessConstant.STOCK_BPMN_Process_Constant));
