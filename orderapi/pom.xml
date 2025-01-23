@@ -92,6 +92,8 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Camunda Connector SDK -->
+
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -120,6 +122,7 @@
                     </excludes>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 

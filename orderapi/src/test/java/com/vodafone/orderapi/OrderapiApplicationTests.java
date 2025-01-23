@@ -14,7 +14,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @ZeebeProcessTest
@@ -33,20 +35,46 @@ class OrderapiApplicationTests {
                 .send()
                 .join();
         DeploymentAssert assertions = BpmnAssert.assertThat(event);
+        assertions.isNotNull();
     }
 
     @Test
     public void testProcessInstance() {
-
+        Map<String,Boolean> map=new HashMap<>();
+        map.put("activate",true);
         ProcessInstanceEvent event = client.newCreateInstanceCommand()
                 .bpmnProcessId("Process_Stock")
                 .latestVersion()
+                .variables(map)
                 .send()
                 .join();
         ProcessInstanceAssert assertions = BpmnAssert.assertThat(event);
+        assertions.hasPassedElement("Gateway_1ksxjl8");
+        assertions.hasVariable("activate");
+        assertions.isWaitingAtElements("Activity_0fr40sk");
+
+        ActivateJobsResponse response = client.newActivateJobsCommand()
+                .jobType("stockcheck")
+                .maxJobsToActivate(1)
+                .send()
+                .join();
+        if(!response.getJobs().isEmpty()) {
+            List<ActivatedJob> activatedJob = response.getJobs();
+            BpmnAssert.assertThat(activatedJob.get(0));
+            client.newCompleteCommand(activatedJob.get(0))
+
+                    .send()
+                    .exceptionally((throwable)->{
+                        throw new RuntimeException("Job not found");
+                    });
+
+        }
+        assertions.hasPassedElement("Activity_0fr40sk");
+        assertions.isCompleted();
+
     }
 
-
+/*
     @Test
     public void testProcessInstanceEvent() {
         ProcessInstanceEvent event = client.newCreateInstanceCommand()
@@ -57,7 +85,7 @@ class OrderapiApplicationTests {
                 .join();
         ProcessInstanceAssert assertions = BpmnAssert.assertThat(event);
     }
-
+*/
     @Test
     public void testActivatedJob(){
 
@@ -69,11 +97,12 @@ class OrderapiApplicationTests {
         if(!response.getJobs().isEmpty()) {
             List<ActivatedJob> activatedJob = response.getJobs();
             BpmnAssert.assertThat(activatedJob.get(0));
+
         }
     }
 
-
-    /*@Test
+/*
+    @Test
     public void testProcessInstanceEventResult() {
         ProcessInstanceResult event = client.newCreateInstanceCommand()
                 .bpmnProcessId("Process_Stock")
